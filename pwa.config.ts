@@ -4,7 +4,7 @@ export default {
   id: '/',
   name: 'Piyush SRP',
   shortName: 'Piyush SRP',
-  description: 'Hello Guies I&#39;m Piyush Trivedi (Rahul). I&#39;m Creative Director and UI/UX Designer from Madhya Pradesh, India.',
+  description: 'Hello Guies I'm Piyush Trivedi (Rahul). I'm Creative Director and UI/UX Designer from Madhya Pradesh, India.',
   direction: 'auto',
   language: 'en-US',
   backgroundColor: '#fff',
