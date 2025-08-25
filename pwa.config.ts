@@ -2,9 +2,9 @@ import type { Config } from './types';
 
 export default {
   id: '/',
-  name: 'My Blog',
-  shortName: 'My Blog',
-  description: 'My blog description goes here...',
+  name: 'Piyush SRP',
+  shortName: 'Piyush SRP',
+  description: 'Hello Guies I&#39;m Piyush Trivedi (Rahul). I&#39;m Creative Director and UI/UX Designer from Madhya Pradesh, India.',
   direction: 'auto',
   language: 'en-US',
   backgroundColor: '#fff',
@@ -17,15 +17,15 @@ export default {
   preferRelatedApplications: false,
   shortcuts: [
     {
-      name: 'Shortcut 1',
-      shortName: 'Shortcut 1',
-      description: 'Shortcut 1 description goes here...',
+      name: 'Piyush SRP',
+      shortName: 'Piyush SRP',
+      description: 'Hello Guies I&#39;m Piyush Trivedi (Rahul). I&#39;m Creative Director and UI/UX Designer from Madhya Pradesh, India .',
       url: '/search/label/shortcut-1?utm_source=homescreen',
     },
     {
-      name: 'Shortcut 2',
-      shortName: 'Shortcut 2',
-      description: 'Shortcut 2 description goes here...',
+      name: 'Piyush SRP',
+      shortName: 'Piyush SRP',
+      description: 'Hello Guies I&#39;m Piyush Trivedi (Rahul). I&#39;m Creative Director and UI/UX Designer from Madhya Pradesh, India .',
       url: '/search/label/shortcut-2?utm_source=homescreen',
     },
   ],
