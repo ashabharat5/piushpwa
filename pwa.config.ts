@@ -19,13 +19,13 @@ export default {
     {
       name: 'Piyush SRP',
       shortName: 'Piyush SRP',
-      description: 'Hello Guies I&#39;m Piyush Trivedi (Rahul). I&#39;m Creative Director and UI/UX Designer from Madhya Pradesh, India .',
+      description: 'Hello Guies I'm Piyush Trivedi (Rahul). I'm Creative Director and UI/UX Designer from Madhya Pradesh, India .',
       url: '/search/label/shortcut-1?utm_source=homescreen',
     },
     {
       name: 'Piyush SRP',
       shortName: 'Piyush SRP',
-      description: 'Hello Guies I&#39;m Piyush Trivedi (Rahul). I&#39;m Creative Director and UI/UX Designer from Madhya Pradesh, India .',
+      description: 'Hello Guies I'm Piyush Trivedi (Rahul). I'm Creative Director and UI/UX Designer from Madhya Pradesh, India .',
       url: '/search/label/shortcut-2?utm_source=homescreen',
     },
   ],
