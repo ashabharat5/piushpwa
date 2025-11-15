@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Hindi Panchang — Dark Ultimate (Integrated results())" height="520">
+    <Require feature="dynamic-height"/>
+  </ModulePrefs>
+
+  <Content type="html"><![CDATA[
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Hindi Panchang — Dark Ultimate</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg:#0b0f1a;
+  --card: rgba(255,255,255,0.03);
+  --muted:#9aa6b2;
+  --accent:#4da6ff;
+  --saffron:#FF9933;
+  --white:#eef6ff;
+}
+
+html,body{height:100%;margin:0;padding:12px;background:linear-gradient(180deg,var(--bg),#071021);font-family:'Poppins',sans-serif;color:var(--white);-webkit-font-smoothing:antialiased}
+.wrapper{max-width:360px;margin:0 auto;}
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:16px;
+  padding:16px;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.7);
+}
+
+/* Title */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.title{font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--saffron),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:12px;color:var(--muted)}
+
+/* Panchang box (replaces old tables) */
+.panchang-box{display:flex;flex-direction:column;gap:10px}
+.p-item{
+  background:rgba(255,255,255,0.02);
+  padding:10px 12px;border-radius:12px;border-left:3px solid var(--accent);
+  transition:all .18s ease;
+}
+.p-item:hover{transform:translateX(3px);background:rgba(255,255,255,0.04)}
+.p-label{color:var(--saffron);font-weight:700;font-size:13px}
+.p-value{color:var(--white);font-weight:600;font-size:15px;margin-top:4px}
+.p-sub{color:var(--muted);font-size:12px;margin-top:6px}
+
+/* compact Ayanamsa bar */
+.ayan{display:flex;justify-content:center;margin-top:8px;padding:8px;border-radius:10px;background:linear-gradient(90deg, rgba(77,166,255,0.06), rgba(255,153,51,0.06));border:1px solid rgba(255,255,255,0.02);font-size:13px;color:var(--white)}
+/* responsive */
+@media (max-width:420px){ .card{padding:12px} .title{font-size:16px} }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card" role="application" aria-label="Hindi Panchang Dark Ultimate">
+      <div class="header">
+        <div>
+          <div class="title">आज का पञ्चांग</div>
+          <div id="hdr-sub" class="sub">ऑटो-अपडेट — Dark Ultimate</div>
+        </div>
+        <div id="hdr-badge" class="sub">🕉️</div>
+      </div>
+
+      <div id="vvv" class="panchang-box" aria-live="polite">
+        <!-- Spinner / fallback while calculations run -->
+        <div style="text-align:center;padding:28px 0;">
+          <img src="https://www.google.com/ig/images/spinner.gif" alt="loading">
+        </div>
+      </div>
+
+      <div id="ayanbar" class="ayan" style="display:none"></div>
+    </div>
+  </div>
+
+<script>
+// ------------------ Helper math & formatting ------------------
+function fix360(a){ a = Number(a); a = a % 360; if(a < 0) a += 360; return a; }
+function pad(n){ return (n < 10 ? '0'+n : ''+n); }
+function lon2dms(a){
+  a = Number(a);
+  a = a % 360; if(a<0) a+=360;
+  var d = Math.floor(a);
+  var m = Math.floor((a - d) * 60);
+  var s = Math.round((((a - d) * 60) - m) * 60);
+  return d + "°" + pad(m) + "'" + pad(s) + '"';
+}
+function zodiacName(n){
+  var names = ["मेष","वृषभ","मिथुन","कर्क","सिंह","कन्या","तुला","वृश्चिक","धनु","मकर","कुम्भ","मीन"];
+  return names[(n-1)%12] || "";
+}
+function lon2dmsz(lon){
+  lon = Number(lon);
+  lon = fix360(lon);
+  var z = Math.floor(lon/30)+1;
+  var deg = Math.floor(lon % 30);
+  var min = Math.floor((lon - Math.floor(lon)) * 60);
+  var sec = Math.round(((lon - Math.floor(lon)) * 60 - min) * 60);
+  return deg + "°" + pad(min) + "'" + pad(sec) + '"' + " (" + zodiacName(z) + ")";
+}
+
+// escape
+function esc(s){ if(s===null||s===undefined) return ''; return String(s).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+
+// ------------------ Default/sample data (so widget works standalone) ------------------
+var sample = {
+  inpdate: new Date().toLocaleString('hi-IN', { dateStyle: 'full', timeStyle: 'short' }),
+  Lmoon: 134.5083,
+  ayanamsa: 24.1970,
+  s_wday: "शनिवार",
+  n_tithi: 1,
+  tith: ["प्रथम","द्वितीया","तृतीया","चतुर्थी","पंचमी","षष्ठी","सप्तमी","अष्टमी","नवमी","दशमी","एकादशी","द्वादशी","त्रयोदशी","चतुर्दशी","पूर्ण/अमावस्या"],
+  s_tithi: "तिथि विवरण: तिथि का छोटा विवरण यहाँ दिखेगा।",
+  n_naksh: 3,
+  naks: [{nname:"अश्विनी"},{nname:"भरणी"},{nname:"कृत्तिका"},{nname:"रोहिणी"},{nname:"मृगशिरा"}],
+  s_naksh: "नक्षत्र नोट्स यहाँ।",
+  n_karana: 2,
+  kar: ["कर्ण","कली","तैतिल","गर","वणिज","विष्टि"],
+  s_karana: "करण की जानकारी।",
+  n_yoga: 5,
+  yog: ["विकरण","शूल","गण्ड","विकर्ण2","शूल2","शिव"],
+  s_yoga: "योग विवरण।"
+};
+
+// make data globally accessible and updatable
+window.__panchangData = Object.assign({}, sample);
+
+// ------------------ Original results() adapted to template-style dark UI ------------------
+function results(){
+  var D = window.__panchangData;
+
+  var inpdate = D.inpdate || '';
+  var Lmoon = Number(D.Lmoon || 0);
+  var ayanamsa = Number(D.ayanamsa || 0);
+  var s_wday = D.s_wday || '';
+  var n_tithi = Number(D.n_tithi || 0);
+  var tith = D.tith || [];
+  var s_tithi = D.s_tithi || '';
+  var n_naksh = Number(D.n_naksh || 0);
+  var naks = D.naks || [];
+  var s_naksh = D.s_naksh || '';
+  var n_karana = Number(D.n_karana || 0);
+  var kar = D.kar || [];
+  var s_karana = D.s_karana || '';
+  var n_yoga = Number(D.n_yoga || 0);
+  var yog = D.yog || [];
+  var s_yoga = D.s_yoga || '';
+
+  // Build HTML (dark modern card style)
+  var html = '';
+  html += '<div class="p-item"><div class="p-label">समय:</div><div class="p-value">'+esc(inpdate)+'</div></div>';
+
+  html += '<div class="p-item"><div class="p-label">सूर्य:</div><div class="p-value">'+esc(lon2dmsz(fix360(Lmoon + ayanamsa)))+'</div></div>';
+
+  html += '<div class="p-item"><div class="p-label">वार:</div><div class="p-value">'+esc(s_wday)+'</div></div>';
+
+  var ttext = (tith[n_tithi] ? ((n_tithi+1)+'. '+tith[n_tithi]) : '—');
+  html += '<div class="p-item"><div class="p-label">तिथि:</div><div class="p-value">'+esc(ttext)+'</div><div class="p-sub">'+esc(s_tithi)+'</div></div>';
+
+  var nk = (naks[n_naksh] && naks[n_naksh].nname) ? ((n_naksh+1)+'. '+naks[n_naksh].nname) : '—';
+  html += '<div class="p-item"><div class="p-label">नक्षत्र:</div><div class="p-value">'+esc(nk)+'</div><div class="p-sub">'+esc(s_naksh)+'</div></div>';
+
+  var karText = kar[n_karana] ? ((n_karana+1)+'. '+kar[n_karana]) : '—';
+  html += '<div class="p-item"><div class="p-label">करण:</div><div class="p-value">'+esc(karText)+'</div><div class="p-sub">'+esc(s_karana)+'</div></div>';
+
+  var yogText = yog[n_yoga] ? ((n_yoga+1)+'. '+yog[n_yoga]) : '—';
+  html += '<div class="p-item"><div class="p-label">योग:</div><div class="p-value">'+esc(yogText)+'</div><div class="p-sub">'+esc(s_yoga)+'</div></div>';
+
+  // ayanamsa bottom bar
+  html += '<div class="ayan" style="display:flex;justify-content:center;margin-top:6px"><strong style="color:var(--saffron);margin-right:8px">Ayanamsa:</strong><span style="color:var(--white)">'+esc(lon2dms(ayanamsa))+'</span></div>';
+
+  // render
+  var v = document.getElementById('vvv');
+  if(v){ v.innerHTML = html; }
+
+  // set ayanbar visible as well
+  var ab = document.getElementById('ayanbar');
+  if(ab){ ab.style.display = 'block'; ab.innerHTML = 'Ayanamsa: ' + esc(lon2dms(ayanamsa)); }
+
+  // update header subtitle
+  var hs = document.getElementById('hdr-sub');
+  if(hs) hs.textContent = D.inpdate || '—';
+}
+
+// ------------------ API for host pages to inject real data ------------------
+/*
+ Expected object fields (best-effort):
+ {
+   inpdate: "शनिवार, 15 नवम्बर 2025",
+   Lmoon: 134.5,
+   ayanamsa: 24.0,
+   s_wday: "शनिवार",
+   n_tithi: 1,
+   tith: ["प्रथम","द्वितीया",...],
+   s_tithi: "तिथि विवरण",
+   n_naksh: 2,
+   naks: [{nname:"रोहिणी"}, ...],
+   s_naksh: "नक्षत्र विवरण",
+   n_karana: 3,
+   kar: [...],
+   s_karana: "...",
+   n_yoga:4,
+   yog:[...],
+   s_yoga:"..."
+ }
+*/
+window.fillPanchangFromHost = function(data){
+  try{
+    if(!data || typeof data !== 'object') return;
+    window.__panchangData = Object.assign({}, window.__panchangData, data || {});
+    results();
+  } catch(e){
+    console.error('fillPanchangFromHost error', e);
+  }
+};
+
+// ------------------ initgadget, initFields, calculate (lightweight fallback) ------------------
+function initFields(){
+  // If your original code sets fields here, it can be ported.
+  // For standalone, we already have default sample data in window.__panchangData
+}
+
+function calculate(){
+  // If you have heavy astronomical calculations, paste them here.
+  // For demonstration, we simply ensure required arrays exist.
+  if(!window.__panchangData.tith) window.__panchangData.tith = sample.tith;
+  if(!window.__panchangData.naks) window.__panchangData.naks = sample.naks;
+  if(!window.__panchangData.kar) window.__panchangData.kar = sample.kar;
+  if(!window.__panchangData.yog) window.__panchangData.yog = sample.yog;
+  // after calculation, render results
+  results();
+}
+
+// Slight blocking sleep (as in original)
+function sleep(milliSeconds){
+  var startTime = new Date().getTime();
+  while (new Date().getTime() < startTime + milliSeconds);
+}
+
+// Try to call host platform iframe height adjust if available
+function _IG_AdjustIFrameHeight(){ try{ if(window.parent && window.parent.postMessage) { /* no-op in most hosts */ } } catch(e){} }
+
+// _IG_RegisterOnloadHandler shim (if not present)
+function _IG_RegisterOnloadHandler(fn){
+  if(document.readyState === 'complete' || document.readyState === 'interactive'){
+    setTimeout(fn, 50);
+  } else {
+    window.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+// initgadget ties together initFields, calculate and adjusts height
+function initgadget(){
+  try{ sleep(500); } catch(e){}
+  try{ initFields(); } catch(e){}
+  try{ calculate(); } catch(e){}
+  try{ _IG_AdjustIFrameHeight(); } catch(e){}
+}
+
+// auto-run
+_IG_RegisterOnloadHandler(initgadget);
+
+// expose initgadget globally too
+window.initgadget = initgadget;
+
+</script>
+</body>
+</html>
+
+  ]]></Content>
+</Module>
