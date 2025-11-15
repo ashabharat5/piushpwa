@@ -13,20 +13,19 @@
 <title>Hindi Panchang - Dark Saffron</title>
 
 <style>
-/* --- Customized Style Block --- */
 :root {
-  --color-dark-bg: #0d0c1d;     /* Very deep, almost black background */
-  --color-card-bg: #1a203c;     /* Dark Indigo/Navy card */
-  --color-detail-bg: #24294d;   /* Slightly lighter inner background */
-  --color-saffron: #FF9933;     /* Saffron border/accent */
-  --color-gold: #FFD700;        /* Gold highlight */
-  --color-red: #ef4444;         /* Tailwind red-500 */
-  --color-gray-text: #9ca3af;   /* Tailwind gray-400 */
-  --color-white-text: #f7f7f7;
+    --color-dark-bg: #0d0c1d;
+    --color-card-bg: #1a203c;
+    --color-detail-bg: #24294d;
+    --color-saffron: #FF9933;
+    --color-gold: #FFD700;
+    --color-red: #ef4444;
+    --color-gray-text: #9ca3af;
+    --color-white-text: #f7f7f7;
 }
 
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
@@ -57,13 +56,10 @@ body{
   justify-content:space-between;
   align-items:center;
   margin-bottom:12px;
-  padding-bottom:8px;
-  border-bottom: 2px dashed #333a60; /* Section separator */
 }
 .title {
-  font-size:24px;
+  font-size:20px;
   font-weight:800;
-  /* Applying a vibrant gradient effect */
   background:linear-gradient(90deg,var(--color-gold),var(--color-saffron));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -73,58 +69,39 @@ body{
   color:var(--color-gray-text);
 }
 
-/* Table styles */
+/* Table styles (converted from your original) */
 #vvv { text-align:center; }
 .panch-table {
   width:100%;
   border-collapse:collapse;
-  margin:12px 0;
-  background-color: var(--color-detail-bg); /* Use detail background for table */
+  margin:8px 0;
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
   border-radius:8px;
   overflow:hidden;
-  border:1px solid #333a60; /* Subtle border */
+  border:1px solid rgba(255,255,255,0.03);
 }
-.panch-table tr + tr td { border-top:1px solid #333a60; }
+.panch-table tr + tr td { border-top:1px solid rgba(255,255,255,0.03); }
 .panch-table td {
-  padding:10px 12px;
-  font-size:14px;
+  padding:8px 10px;
+  font-size:13px;
 }
 .panch-table .label {
   color:var(--color-saffron);
   font-weight:700;
-  width:40%; /* Ensures alignment */
+  width:40%;
   text-align:left;
-  vertical-align: top;
 }
 .panch-table .value {
   text-align:right;
   color:var(--color-white-text);
   font-weight:600;
-  vertical-align: top;
 }
-
-/* Special Rows */
-.panch-table .sun-moon-header {
-    background-color: #333a60; /* Darker bar */
-    text-align:center; 
-    padding:8px;
-    color: var(--color-white-text);
-    font-size: 14px;
-}
-.panch-table .sun-moon-header span:first-child {
-    color: var(--color-gold);
-    font-weight:700;
-    margin-right: 8px;
-}
-
 
 /* small muted line for sub info */
 .muted {
   color:var(--color-gray-text);
   font-size:11px;
   margin-top:6px;
-  font-weight: 400;
-  display: block; /* Ensures muted text goes to a new line */
 }
 
 /* spinner fallback */
@@ -134,15 +111,13 @@ body{
 }
 
 /* paste area fallback (hidden by default) */
-#paste-wrap { margin-top:16px; display:none; gap:10px; flex-direction:column; background: #111529; padding: 12px; border-radius: 8px; border: 1px dashed #333a60;}
+#paste-wrap { margin-top:12px; display:none; gap:6px; flex-direction:column; }
 #xml-input { width:100%; min-height:120px; border-radius:8px; border:1px solid #333a60; background:#0e1224; color:var(--color-white-text); padding:10px; font-family:monospace; font-size:12px; resize:vertical; }
-.btn { cursor:pointer; border-radius:8px; padding:10px 14px; border:none; font-weight:700; transition: background-color 0.2s;}
+.btn { cursor:pointer; border-radius:8px; padding:8px 12px; border:none; font-weight:700; }
 .btn-saff { background:var(--color-saffron); color:#111; }
-.btn-saff:hover { background: #ffaa44; }
-.btn-try { background:#475569; color:white; }
-.btn-try:hover { background:#64748b; }
+.btn-try { background:#334155; color:white; }
 
-#error-msg { color:#fca5a5; font-size:13px; text-align:center; margin-top:8px; }
+#error-msg { color:#ffb4b4; font-size:13px; text-align:center; margin-top:8px; }
 </style>
 
 </head>
@@ -159,14 +134,15 @@ body{
     <div id="vvv" align="center">
       <!-- initial spinner -->
       <img class="spinner" src="https://www.google.com/ig/images/spinner.gif" alt="loading">
+      <br><br>
     </div>
 
     <div id="paste-wrap">
       <div class="sub">यदि remote fetch काम नहीं कर रहा है — अपना पुराना XML यहाँ पेस्ट करें:</div>
       <textarea id="xml-input" placeholder="Paste your hindi_panchang.xml here..."></textarea>
       <div style="display:flex;gap:8px;justify-content:center;margin-top:6px">
-        <button id="apply-xml" class="btn btn-saff">XML लागू करें</button>
-        <button id="try-fetch" class="btn btn-try">Remote Fetch प्रयास करें</button>
+        <button id="apply-xml" class="btn btn-saff">Apply XML</button>
+        <button id="try-fetch" class="btn btn-try">Try remote fetch</button>
       </div>
       <div id="error-msg" role="status" aria-live="polite"></div>
     </div>
@@ -175,15 +151,16 @@ body{
 
 <script>
 /*
- * This script handles rendering the Panchang data based on a provided data object.
- * It includes functions for formatting astronomical values (degrees to DMS) and
- * logic for handling data from an external host, pasted XML, or a remote fetch.
- */
+  Adapted results() + helper functions.
+  This widget will:
+  - try remote fetch (best-effort)
+  - allow host page to call window.fillPanchangFromHost(data) with real values
+  - allow manual paste (Apply XML) to populate values
+*/
 
 /* ---------- Helpers (formatting) ---------- */
 function fix360(a){ a = Number(a); a = a % 360; if(a < 0) a += 360; return a; }
 
-/** Converts longitude to Degrees/Minutes/Seconds with Zodiac Sign */
 function lon2dmsz(lon){
   // input lon in degrees (0-360). returns "DD°MM'SS\" Z"
   lon = Number(lon);
@@ -192,10 +169,8 @@ function lon2dmsz(lon){
   const deg = Math.floor(lon % 30);
   const min = Math.floor((lon - Math.floor(lon)) * 60);
   const sec = Math.round(((lon - Math.floor(lon)) * 60 - min) * 60);
-  return deg + "°" + pad(min) + "'" + pad(sec) + "\"  (" + zodiacName(z) + ")";
+  return deg + "°" + pad(min) + "'" + pad(sec) + "\"  (" + zodiacName(z) + ")";
 }
-
-/** Converts degrees to Degrees/Minutes/Seconds */
 function lon2dms(lon){
   lon = Number(lon);
   lon = fix360(lon);
@@ -209,35 +184,31 @@ function zodiacName(n){
   const names = ["मेष","वृषभ","मिथुन","कर्क","सिंह","कन्या","तुला","वृश्चिक","धनु","मकर","कुम्भ","मीन"];
   return names[(n-1)%12] || "";
 }
-function escapeHtml(s){
-  if(s===null || s===undefined) return '';
-  return String(s).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; });
-}
 
-/* ---------- Default/Initial Data Structure ---------- */
+/* ---------- UI fill using a data object ---------- */
 const defaultData = {
-  inpdate: (new Date()).toLocaleDateString('hi-IN', { dateStyle: 'full', timeStyle: 'short' }),
-  Lmoon: 134.5,            // sample moon longitude degrees
-  ayanamsa: 24.0,          // sample ayanamsa degrees
+  inpdate: (new Date()).toLocaleString('hi-IN', { dateStyle: 'full', timeStyle: 'short' }),
+  Lmoon: 134.5,           // sample moon longitude degrees
+  ayanamsa: 24.0,         // sample ayanamsa degrees
   s_wday: "शनिवार",
   n_tithi: 1,
-  tith: ["प्रतिपदा","द्वितीया","तृतीया","चतुर्थी","पंचमी","षष्ठी","सप्तमी","अष्टमी","नवमी","दशमी","एकादशी","द्वादशी","त्रयोदशी","चतुर्दशी","पूर्णिमा/अमावस्या"], 
-  s_tithi: "15:30 तक (After 15:30: द्वितीया)",
+  tith: ["प्रथम","द्वितीया","तृतीया","चतुर्थी","पंचमी","षष्ठी","सप्तमी","अष्टमी","नवमी","दशमी","एकादशी","द्वাদशी","त्रयोदशी","चतुर्दशी","पूर्ण/अमावस्या"], // sample
+  s_tithi: "तिथि विवरण",
   n_naksh: 2,
   naks: [{nname:"अश्विनी"},{nname:"भरणी"},{nname:"कृत्तिका"},{nname:"रोहिणी"}],
-  s_naksh: "09:45 तक",
+  s_naksh: "नक्षत्र विवरण",
   n_karana: 3,
-  kar: ["बव","बालव","कौलव","तैतिल","गर","वणिज","विष्टि"],
-  s_karana: "08:00 तक",
+  kar: ["कट्टर","गर","वणिज","वणिज2","कट्टर2","गर2"],
+  s_karana: "करण विवरण",
   n_yoga: 4,
-  yog: ["प्रीति","आयुष्मान","सौभाग्य","शोभन","अतिगण्ड"],
-  s_yoga: "21:10 तक"
+  yog: ["विकर्ण","शूल","गण्ड","विकर्ण2","शूल2"],
+  s_yoga: "योग विवरण"
 };
 
 // make current values accessible from outside
 window.__panchangData = Object.assign({}, defaultData);
 
-/* ---------- UI Renderer (Generates HTML based on data) ---------- */
+/* results() converted to use data */
 function results(){
   const D = window.__panchangData;
   const inpdate = D.inpdate || '';
@@ -257,57 +228,73 @@ function results(){
   const yog = D.yog || [];
   const s_yoga = D.s_yoga || '';
 
-  // 1. Time Header
-  let panch = '<div align="center"><span style="font-family:Courier New, Mangal, mono; font-size:12px; color: var(--color-gray-text);">समय:&nbsp;'+ escapeHtml(inpdate) + '</span></div>';
+  let panch = '<div align="center"><span style="font-family:Courier New, Mangal, mono; font-size:13px">समय:&nbsp;'+ escapeHtml(inpdate) + '</span></div><br>';
 
-  // 2. Sun/Moon Position
-  panch += '<table class="panch-table" style="margin-bottom: 0;">';
-  panch += '<tr><td colspan="2" class="sun-moon-header" style="background-color: var(--color-detail-bg);"><span>सूर्य / चंद्रमा:</span> <span style="font-weight:600; color: var(--color-white-text);">' + escapeHtml(lon2dmsz(fix360(Lmoon + ayanamsa))) + '</span></td></tr></table>';
+  // Sun/Moon position (using Lmoon + ayanamsa as in your code)
+  panch += '<table class="panch-table" style="background:#fffff0"><tr><td colspan="2" style="background:#999999;height:4px"></td></tr>';
+  panch += '<tr><td class="label" colspan="2" style="text-align:center; padding:8px;"><span style="color:#3DB679;font-weight:700">सूर्य:</span> <span style="font-weight:600;">' + escapeHtml(lon2dmsz(fix360(Lmoon + ayanamsa))) + '</span></td></tr></table>';
 
-  // 3. Main Panchang Elements
   panch += '<table class="panch-table">';
-  
-  // War (वार)
   panch += '<tr><td class="label">वार:</td><td class="value">' + escapeHtml(s_wday) + '</td></tr>';
 
-  // Tithi (तिथि)
+  // Tithi
   const tithiText = (tith[n_tithi] ? ( (n_tithi+1)+'. '+ tith[n_tithi] ) : '—');
-  panch += '<tr><td class="label">तिथि (Lunar Day):</td><td class="value">' + escapeHtml(tithiText) + '<span class="muted">' + escapeHtml(s_tithi) + '</span></td></tr>';
+  panch += '<tr><td class="label">तिथि:</td><td class="value">' + escapeHtml(tithiText) + '<div class="muted">' + escapeHtml(s_tithi) + '</div></td></tr>';
 
-  // Nakshatra (नक्षत्र)
+  // Nakshatra
   const nakText = (naks[n_naksh] && naks[n_naksh].nname) ? ((n_naksh+1)+'. ' + naks[n_naksh].nname) : '—';
-  panch += '<tr><td class="label">नक्षत्र (Star):</td><td class="value">' + escapeHtml(nakText) + '<span class="muted">' + escapeHtml(s_naksh) + '</span></td></tr>';
+  panch += '<tr><td class="label">नक्षत्र:</td><td class="value">' + escapeHtml(nakText) + '<div class="muted">' + escapeHtml(s_naksh) + '</div></td></tr>';
 
-  // Karana (करण)
+  // Karana
   const karText = kar[n_karana] ? ((n_karana+1)+'. ' + kar[n_karana]) : '—';
-  panch += '<tr><td class="label">करण (Half-Tithi):</td><td class="value">' + escapeHtml(karText) + '<span class="muted">' + escapeHtml(s_karana) + '</span></td></tr>';
+  panch += '<tr><td class="label">करण:</td><td class="value">' + escapeHtml(karText) + '<div class="muted">' + escapeHtml(s_karana) + '</div></td></tr>';
 
-  // Yoga (योग)
+  // Yoga
   const yogText = yog[n_yoga] ? ((n_yoga+1)+'. ' + yog[n_yoga]) : '—';
-  panch += '<tr><td class="label">योग (Conjunction):</td><td class="value">' + escapeHtml(yogText) + '<span class="muted">' + escapeHtml(s_yoga) + '</span></td></tr>';
+  panch += '<tr><td class="label">योग:</td><td class="value">' + escapeHtml(yogText) + '<div class="muted">' + escapeHtml(s_yoga) + '</div></td></tr>';
 
   panch += '</table>';
 
-  // 4. Ayanamsa Footer
-  panch += '<table class="panch-table" style="margin-top: 0;">';
-  panch += '<tr><td class="sun-moon-header" style="background-color: var(--color-card-bg); border-top: 1px solid #333a60;"><span style="color:var(--color-saffron); margin-right: 8px;">Ayanamsa:</span> <span style="font-weight:600; color: var(--color-white-text); font-size: 14px;">' + escapeHtml(lon2dms(ayanamsa)) + '</span></td></tr></table>';
-  
+  // Ayanamsa small row
+  panch += '<table class="panch-table"><tr><td style="text-align:center;padding:8px"><span style="color:#3DB679;font-weight:700">Ayanamsa:</span> <span>' + escapeHtml(lon2dms(ayanamsa)) + '</span></td></tr></table>';
+
   document.getElementById("vvv").innerHTML = panch;
 }
 
+/* ---------- Quick format helpers (already defined above) ---------- */
+// escapeHTML
+function escapeHtml(s){
+  if(s===null || s===undefined) return '';
+  return String(s).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; });
+}
+
 /* ---------- External API: host can call this to fill real data ---------- */
+/*
+ Expected data format (example):
+ window.fillPanchangFromHost({
+   inpdate: "शनिवार, 15 नवम्बर 2025",
+   Lmoon: 134.5,
+   ayanamsa: 24.0,
+   s_wday: "शनिवार",
+   n_tithi: 1,
+   tith: ["प्रथम","द्वितीया",...],
+   s_tithi: "तिथि विवरण",
+   n_naksh: 2,
+   naks: [{nname:"रविभ"},...],
+   s_naksh: "...",
+   n_karana: 3, kar: [...], s_karana: "...",
+   n_yoga: 4, yog: [...], s_yoga: "..."
+ });
+*/
 window.fillPanchangFromHost = function(data){
   try {
     window.__panchangData = Object.assign({}, window.__panchangData, data || {});
+    // update small header date display
     document.getElementById('inpdate_display').textContent = window.__panchangData.inpdate || '';
     results();
-    // Hide the paste area on successful data fill
-    document.getElementById('paste-wrap').style.display = 'none';
-    document.getElementById('error-msg').textContent = "";
   } catch(e){
     console.error('fillPanchangFromHost error', e);
     document.getElementById('error-msg').textContent = "Apply failed: " + e.message;
-    document.getElementById('paste-wrap').style.display = 'flex';
   }
 };
 
@@ -322,23 +309,26 @@ function parseXmlTextToData(txt){
       if(el && el.textContent) return el.textContent.trim();
       return null;
     };
-    
+    // Map likely tags (best-effort)
     const data = {};
     data.inpdate = g('date') || g('full_date') || data.inpdate;
     data.Lmoon = Number(g('Lmoon') || g('moonLong') || g('moon_lon') || data.Lmoon || 0);
     data.ayanamsa = Number(g('ayanamsa') || g('ayan') || data.ayanamsa || 0);
     data.s_wday = g('weekday') || g('day') || data.s_wday;
     data.n_tithi = Number(g('n_tithi') || g('tithi_index') || data.n_tithi || 0);
-    data.s_tithi = g('s_tithi') || g('tithi_text') || g('tithi') || defaultData.s_tithi;
+    data.tith = []; // leave unknown
+    // try tithi text
+    data.s_tithi = g('s_tithi') || g('tithi_text') || g('tithi');
     data.n_naksh = Number(g('n_naksh') || g('nak_index') || data.n_naksh || 0);
-    data.s_naksh = g('s_naksh') || g('nakshatra_text') || g('nakshatra') || defaultData.s_naksh;
+    data.s_naksh = g('s_naksh') || g('nakshatra') || '';
     data.n_karana = Number(g('n_karana') || 0);
-    data.s_karana = g('s_karana') || defaultData.s_karana;
+    data.s_karana = g('s_karana') || '';
     data.n_yoga = Number(g('n_yoga') || 0);
-    data.s_yoga = g('s_yoga') || defaultData.s_yoga;
+    data.s_yoga = g('s_yoga') || '';
 
     return data;
   } catch(e){
+    console.error('parseXmlTextToData', e);
     return null;
   }
 }
@@ -346,16 +336,15 @@ function parseXmlTextToData(txt){
 document.getElementById('apply-xml').addEventListener('click', function(){
   const txt = document.getElementById('xml-input').value.trim();
   if(!txt){
-    document.getElementById('error-msg').textContent = "प्लीज़ XML पेस्ट करें। (Please paste XML.)";
+    document.getElementById('error-msg').textContent = "प्लीज़ XML पेस्ट करें।";
     return;
   }
   const mapped = parseXmlTextToData(txt);
   if(mapped){
     window.fillPanchangFromHost(mapped);
-    document.getElementById('error-msg').textContent = "XML लागू कर दिया गया। (XML applied successfully.)";
+    document.getElementById('error-msg').textContent = "XML लागू कर दिया गया।";
   } else {
-    document.getElementById('error-msg').textContent = "XML पार्सिंग विफल। (XML parsing failed.)";
-    document.getElementById('paste-wrap').style.display = 'flex';
+    document.getElementById('error-msg').textContent = "XML पार्सिंग विफल।";
   }
 });
 
@@ -367,7 +356,7 @@ async function tryFetchRemote(){
     const r = await fetch(REMOTE, {mode:'cors', cache:'no-store'});
     if(!r.ok) throw new Error('HTTP ' + r.status);
     const txt = await r.text();
-    
+    // Try parse and fill via mapping
     const mapped = parseXmlTextToData(txt);
     if(mapped){
       window.fillPanchangFromHost(mapped);
@@ -375,13 +364,14 @@ async function tryFetchRemote(){
       document.getElementById('error-msg').textContent = "";
       return;
     } else {
+      // maybe remote contains <Module> wrapper — try to extract inner content tags
       document.getElementById('xml-input').value = txt;
       document.getElementById('paste-wrap').style.display = 'flex';
       document.getElementById('error-msg').textContent = "Remote fetched but custom tags not recognized — pasted content in box for manual Apply.";
     }
   } catch(e){
     document.getElementById('paste-wrap').style.display = 'flex';
-    document.getElementById('error-msg').textContent = "Remote fetch failed: " + e.message + ". Please paste XML manually.";
+    document.getElementById('error-msg').textContent = "Remote fetch failed: " + e.message;
   }
 }
 document.getElementById('try-fetch').addEventListener('click', tryFetchRemote);
@@ -391,18 +381,16 @@ function initgadget(){
   // set header date
   document.getElementById('inpdate_display').textContent = window.__panchangData.inpdate;
   results();
-  
-  // Try remote fetch (best-effort) but do not block
+  // try fetch remote (best-effort) but do not block
   tryFetchRemote();
-  
-  // Adjust iframe height if host provides (for gadgets platform)
+  // adjust iframe height if host provides (for gadgets platform)
   try { if(typeof _IG_AdjustIFrameHeight === 'function') _IG_AdjustIFrameHeight(); } catch(e){}
 }
 
 // expose init so gadget host can call if needed
 window.initgadget = initgadget;
 
-// Auto init after small delay
+// auto init after small delay
 setTimeout(initgadget, 400);
 
 </script>
