@@ -146,7 +146,7 @@ body{
     <div class="header">
       <div>
         <div class="title">दैनिक पञ्चांग</div>
-        <div class="sub" id="inpdate_display">Loading...</div>
+       
       </div>
       <div id="badge" class="sub">🕉️</div>
     </div>
@@ -156,15 +156,7 @@ body{
       <img class="spinner" src="https://www.google.com/ig/images/spinner.gif" alt="loading">
     </div>
 
-    <div id="paste-wrap">
-      <div class="sub">यदि remote fetch काम नहीं कर रहा है — अपना पुराना XML यहाँ पेस्ट करें:</div>
-      <textarea id="xml-input" placeholder="Paste your hindi_panchang.xml here..."></textarea>
-      <div style="display:flex;gap:8px;justify-content:center;margin-top:6px">
-        <button id="apply-xml" class="btn btn-saff">XML लागू करें</button>
-        <button id="try-fetch" class="btn btn-try">Remote Fetch प्रयास करें</button>
-      </div>
-      <div id="error-msg" role="status" aria-live="polite"></div>
-    </div>
+
 
   </div>
 
