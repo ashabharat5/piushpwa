@@ -970,60 +970,61 @@ return wday;
 function results() {
 panch += '<div style="background:#222244; padding:12px; border-radius:10px; text-align:center; font-family:\'Poppins\', sans-serif; font-size:16px; color:#FFD700; text-shadow:0 0 6px rgba(255,215,0,0.6); box-shadow:0 2px 10px rgba(0,0,0,0.5);">समय: ' + inpdate + '</div><br>';
 
-// ---------- Ultimate Dark Panchang with Poppins ----------
-panch = '<div style="width:100%; max-width:800px; margin:auto; background-color:#1a1a2e; color:#f5f5f5; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.7); font-family:\'Poppins\', sans-serif; padding:20px;">';
+// ---------- Ultimate Dark Panchang ----------
+panch = '<div style="width:100%; max-width:800px; margin:auto; background-color:#1a1a2e; color:#f5f5f5; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.7); font-family:\'Poppins\', sans-serif;  padding:20px;">';
 
 panch += '<div style="text-align:center; margin-bottom:15px;">';
-panch += '<span style="color:#FF9933; font-weight:600; font-size:16px;">सूर्य:</span> ';
-panch += '<span style="color:#00FFAA; font-size:16px; font-weight:500;">' + lon2dmsz(fix360(Lmoon + ayanamsa)) + '</span>';
+panch += '<span style="color:#FF9933; font-weight:bold; font-size:16px;">सूर्य:</span> ';
+panch += '<span style="color:#00FFAA; font-size:16px; font-weight:600;">' + lon2dmsz(fix360(Lmoon + ayanamsa)) + '</span>';
 panch += '</div>';
 
-panch += '<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin-bottom:15px;">';
+panch += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">';
 
 // वार
-panch += '<div style="background:#222244; padding:12px; border-radius:10px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
-panch += '<span style="color:#FF9933; font-weight:600;">वार:</span><br>';
-panch += '<span style="color:#f5f5f5; font-weight:500;">' + s_wday + '</span>';
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">वार:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + s_wday + '</span>';
 panch += '</div>';
 
 // तिथि
-panch += '<div style="background:#222244; padding:12px; border-radius:10px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
-panch += '<span style="color:#FF9933; font-weight:600;">तिथि:</span><br>';
-panch += '<span style="color:#f5f5f5; font-weight:500;">' + (n_tithi + 1) + '. ' + tith[n_tithi] + '</span><br>';
-panch += '<span style="color:#AAAAAA; font-size:13px;">' + s_tithi + '</span>';
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">तिथि:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_tithi + 1) + '. ' + tith[n_tithi] + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_tithi + '</span>';
 panch += '</div>';
 
 // नक्षत्र
-panch += '<div style="background:#222244; padding:12px; border-radius:10px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
-panch += '<span style="color:#FF9933; font-weight:600;">नक्षत्र:</span><br>';
-panch += '<span style="color:#f5f5f5; font-weight:500;">' + (n_naksh + 1) + '. ' + naks[n_naksh].nname + '</span><br>';
-panch += '<span style="color:#AAAAAA; font-size:13px;">' + s_naksh + '</span>';
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">नक्षत्र:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_naksh + 1) + '. ' + naks[n_naksh].nname + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_naksh + '</span>';
 panch += '</div>';
 
 // करण
-panch += '<div style="background:#222244; padding:12px; border-radius:10px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
-panch += '<span style="color:#FF9933; font-weight:600;">करण:</span><br>';
-panch += '<span style="color:#f5f5f5; font-weight:500;">' + (n_karana + 1) + '. ' + kar[n_karana] + '</span><br>';
-panch += '<span style="color:#AAAAAA; font-size:13px;">' + s_karana + '</span>';
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">करण:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_karana + 1) + '. ' + kar[n_karana] + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_karana + '</span>';
 panch += '</div>';
 
 // योग
-panch += '<div style="background:#222244; padding:12px; border-radius:10px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5); grid-column:span 2;">';
-panch += '<span style="color:#FF9933; font-weight:600;">योग:</span><br>';
-panch += '<span style="color:#f5f5f5; font-weight:500;">' + (n_yoga + 1) + '. ' + yog[n_yoga] + '</span><br>';
-panch += '<span style="color:#AAAAAA; font-size:13px;">' + s_yoga + '</span>';
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5); grid-column:span 2;">';
+panch += '<span style="color:#FF9933; font-weight:bold;">योग:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_yoga + 1) + '. ' + yog[n_yoga] + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_yoga + '</span>';
 panch += '</div>';
 
 panch += '</div>'; // End grid
 
 // Ayanamsa
-panch += '<div style="text-align:center; margin-top:15px; padding:10px; background:#111133; border-radius:10px; color:#00FFAA; font-weight:500; box-shadow:0 2px 8px rgba(0,255,170,0.5);">';
+panch += '<div style="text-align:center; margin-top:15px; padding:8px; background:#111133; border-radius:8px; color:#00FFAA; font-weight:600; box-shadow:0 2px 8px rgba(0,255,170,0.5);">';
 panch += 'Ayanamsa: ' + lon2dms(ayanamsa);
 panch += '</div>';
 
 panch += '</div>'; // End main container
 
 document.getElementById("vvv").innerHTML = panch;
+
 
 }
 
