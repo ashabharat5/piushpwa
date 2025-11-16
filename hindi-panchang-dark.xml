@@ -970,15 +970,59 @@ return wday;
 function results() {
 panch='<div align="center" ><font face="Poppins, sans-serif;" size="1.5">समय:&nbsp;'+ inpdate + '</font></div><br>';
 
-panch+='<table width="100%" border="0" cellspacing="0" cellpadding="0" height="20"><tr bgcolor="#000"><td align="center" bgcolor="#999999" height="1"></td></tr><tr bgcolor="#fffff0"><td align="center" height="19"><span class="text3">&nbsp;<font color="#3DB679" size ="2"><b>सूर्य:</b> </font><font size ="2">' + lon2dmsz(fix360(Lmoon + ayanamsa)) + '</font></span></td></tr></table>';
-panch+='<table width="100%" border="0" cellspacing="1" cellpadding="3" align="center" bgcolor="#000"><tr bgcolor="#000"><td valign="middle" bgcolor="#000" nowrap colspan="2"><font class="text3" color="#3DB679" size="2"><b>वार:</b></font>&nbsp;';
-panch+='<font class="text8" size="2">' + s_wday + '</font><br></td></tr><tr bgcolor="#000"><td valign="middle" bgcolor="#000" nowrap colspan="2"><font class="text3" size = "2" color="#3DB679"><b>तिथि:</b></font>&nbsp;';
-panch+='<font class="text8" size="2">' + (n_tithi + 1) + '. ' + tith[n_tithi] + '</font><br><font class="text3" color="#fff" size="1">' + s_tithi + '</font></td></td></tr><tr bgcolor="#fffff0"><td valign="middle" bgcolor="#fffff0" nowrap colspan="2"><font class="text3" size="2" color="#3DB679"><b>नक्षत्र:</b></font>&nbsp;';
-panch+='<font class="text8" size="2">' + (n_naksh + 1) + '. ' + naks[n_naksh].nname + '</font><br><font class="text3" color="#fff" size="1">' + s_naksh + '</font></td></tr><tr bgcolor="#fffff0"><td valign="middle" bgcolor="#fffff0" nowrap colspan="2"><font class="text3" color="#3DB679" size="2"><b>करण:</b></font>&nbsp;';
-panch+='<font class="text8" size="2">' + (n_karana + 1) + '. ' + kar[n_karana] + '</font><br><font class="text3" color="#fff" size="1">' + s_karana + '</font></td></tr><tr bgcolor="#fffff0"><td valign="middle" bgcolor="#fffff0" nowrap colspan="2"><font class="text3" color="#3DB679" size="2"><b>योग:</b></font>&nbsp;';
-panch+='<font class="text8" size="2">' + (n_yoga + 1) + '. ' + yog[n_yoga] + '</font><br><font class="text3" color="#fff" size="1">' + s_yoga + '</font></td></tr></table>';
-panch+='<table width="230" border="0" cellspacing="0" cellpadding="0" align="center" height="20"><tr bgcolor="#000"><td width="230" height="20">';
-panch+='<table width="100%" border="0" cellspacing="0" cellpadding="0" height="20"><tr><td align="center" height="19"><span class="text3" ><font color="#3DB679" size="2"><b>Ayanamsa: </b></font> <font size="2">' + lon2dms(ayanamsa) + '</font> </span></td></tr><tr><td align="center" bgcolor="#999999" height="1"></td></tr></table></td></tr></table>';
+// ---------- Ultimate Dark Panchang ----------
+panch = '<div style="width:100%; max-width:800px; margin:auto; background-color:#1a1a2e; color:#f5f5f5; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.7); font-family:Courier, Mangal, monospace; padding:20px;">';
+
+panch += '<div style="text-align:center; margin-bottom:15px;">';
+panch += '<span style="color:#FF9933; font-weight:bold; font-size:16px;">सूर्य:</span> ';
+panch += '<span style="color:#00FFAA; font-size:16px; font-weight:600;">' + lon2dmsz(fix360(Lmoon + ayanamsa)) + '</span>';
+panch += '</div>';
+
+panch += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">';
+
+// वार
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">वार:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + s_wday + '</span>';
+panch += '</div>';
+
+// तिथि
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">तिथि:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_tithi + 1) + '. ' + tith[n_tithi] + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_tithi + '</span>';
+panch += '</div>';
+
+// नक्षत्र
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">नक्षत्र:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_naksh + 1) + '. ' + naks[n_naksh].nname + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_naksh + '</span>';
+panch += '</div>';
+
+// करण
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);">';
+panch += '<span style="color:#FF9933; font-weight:bold;">करण:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_karana + 1) + '. ' + kar[n_karana] + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_karana + '</span>';
+panch += '</div>';
+
+// योग
+panch += '<div style="background:#222244; padding:10px; border-radius:8px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5); grid-column:span 2;">';
+panch += '<span style="color:#FF9933; font-weight:bold;">योग:</span><br>';
+panch += '<span style="color:#f5f5f5;">' + (n_yoga + 1) + '. ' + yog[n_yoga] + '</span><br>';
+panch += '<span style="color:#AAAAAA; font-size:12px;">' + s_yoga + '</span>';
+panch += '</div>';
+
+panch += '</div>'; // End grid
+
+// Ayanamsa
+panch += '<div style="text-align:center; margin-top:15px; padding:8px; background:#111133; border-radius:8px; color:#00FFAA; font-weight:600; box-shadow:0 2px 8px rgba(0,255,170,0.5);">';
+panch += 'Ayanamsa: ' + lon2dms(ayanamsa);
+panch += '</div>';
+
+panch += '</div>'; // End main container
+
 document.getElementById("vvv").innerHTML = panch;
 }
 
