@@ -968,71 +968,18 @@ return wday;
 // draw panchang table
 //------------------------------------------------------------------------------------------
 function results() {
-panch='<div align="center" ><font face="Courier New, Courier, Mangal, mono" size="1.5">समय:&nbsp;'+ inpdate + '</font></div><br>';
+panch='<div align="center" ><font face="Poppins, sans-serif;" size="1.5">समय:&nbsp;'+ inpdate + '</font></div><br>';
 
-panch = '';
-
-// Main container for 100% width and dark background (Midnight Blue/Black)
-panch += '<div style="width:100%; max-width: 600px; margin: 0 auto; background-color: #121212; color: #E0E0E0; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">';
-
-// --- Suryamsha / Sun Position Section ---
-panch += '<div style="text-align: center; margin-bottom: 20px; padding: 10px; border-bottom: 2px solid #3DB679;">';
-panch += '<span style="font-size: 1.2em; color: #3DB679; font-weight: 700;">☀️ सूर्य (Sun)</span>';
-panch += '<div style="font-size: 1.5em; color: #FFD700; margin-top: 5px; font-weight: bold;">' + lon2dmsz(fix360(Lmoon + ayanamsa)) + '</div>';
-panch += '</div>'; // End Sun Section
-
-// --- Panchang Details Table ---
-// Using a modern flex/grid-like layout (simulated with table for maximum compatibility)
-panch += '<table style="width:100%; border-collapse: separate; border-spacing: 0 10px;">';
-
-// Utility function (simulated) for creating styled rows
-function createPanchangRow(label, mainValue, subValue) {
-    let row = '<tr style="background-color: #1E1E1E; border-radius: 8px;">';
-    
-    // Label Column (Left)
-    row += '<td style="padding: 12px; width: 30%; color: #3DB679; font-size: 1em; font-weight: 600; border-right: 1px solid #333; border-radius: 8px 0 0 8px;">';
-    row += label + ':';
-    row += '</td>';
-
-    // Value Column (Right)
-    row += '<td style="padding: 12px; width: 70%; color: #E0E0E0; font-size: 1em; border-radius: 0 8px 8px 0;">';
-    row += '<div style="font-weight: bold; color: #FFB347; margin-bottom: 2px;">' + mainValue + '</div>'; // Main Value (Bold/Accent)
-    if (subValue) {
-        row += '<div style="font-size: 0.85em; color: #999999;">' + subValue + '</div>'; // Sub Value (Smaller/Grey)
-    }
-    row += '</td>';
-
-    row += '</tr>';
-    return row;
-}
-
-// 1. Vaar (Day)
-panch += createPanchangRow('🗓️ वार (Day)', s_wday, null);
-
-// 2. Tithi
-panch += createPanchangRow('🌙 तिथि (Tithi)', (n_tithi + 1) + '. ' + tith[n_tithi], s_tithi);
-
-// 3. Nakshatra
-panch += createPanchangRow('⭐ नक्षत्र (Nakshatra)', (n_naksh + 1) + '. ' + naks[n_naksh].nname, s_naksh);
-
-// 4. Karana
-panch += createPanchangRow('⚙️ करण (Karana)', (n_karana + 1) + '. ' + kar[n_karana], s_karana);
-
-// 5. Yoga
-panch += createPanchangRow('🧘 योग (Yoga)', (n_yoga + 1) + '. ' + yog[n_yoga], s_yoga);
-
-panch += '</table>'; // End Panchang Details Table
-
-// --- Ayanamsa Section ---
-panch += '<div style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px solid #3DB679;">';
-panch += '<span style="font-size: 1em; color: #3DB679; font-weight: 600;">Ayanamsa: </span>';
-panch += '<span style="font-size: 1.1em; color: #AAAAAA; font-weight: bold;">' + lon2dms(ayanamsa) + '</span>';
-panch += '</div>'; // End Ayanamsa Section
-
-panch += '</div>'; // End Main Container
-
-// Final assignment to the element
-panch += 'document.getElementById("vvv").innerHTML = panch;';
+panch+='<table width="100%" border="0" cellspacing="0" cellpadding="0" height="20"><tr bgcolor="#000"><td align="center" bgcolor="#999999" height="1"></td></tr><tr bgcolor="#fffff0"><td align="center" height="19"><span class="text3">&nbsp;<font color="#3DB679" size ="2"><b>सूर्य:</b> </font><font size ="2">' + lon2dmsz(fix360(Lmoon + ayanamsa)) + '</font></span></td></tr></table>';
+panch+='<table width="100%" border="0" cellspacing="1" cellpadding="3" align="center" bgcolor="#000"><tr bgcolor="#000"><td valign="middle" bgcolor="#000" nowrap colspan="2"><font class="text3" color="#3DB679" size="2"><b>वार:</b></font>&nbsp;';
+panch+='<font class="text8" size="2">' + s_wday + '</font><br></td></tr><tr bgcolor="#000"><td valign="middle" bgcolor="#000" nowrap colspan="2"><font class="text3" size = "2" color="#3DB679"><b>तिथि:</b></font>&nbsp;';
+panch+='<font class="text8" size="2">' + (n_tithi + 1) + '. ' + tith[n_tithi] + '</font><br><font class="text3" color="#fff" size="1">' + s_tithi + '</font></td></td></tr><tr bgcolor="#fffff0"><td valign="middle" bgcolor="#fffff0" nowrap colspan="2"><font class="text3" size="2" color="#3DB679"><b>नक्षत्र:</b></font>&nbsp;';
+panch+='<font class="text8" size="2">' + (n_naksh + 1) + '. ' + naks[n_naksh].nname + '</font><br><font class="text3" color="#fff" size="1">' + s_naksh + '</font></td></tr><tr bgcolor="#fffff0"><td valign="middle" bgcolor="#fffff0" nowrap colspan="2"><font class="text3" color="#3DB679" size="2"><b>करण:</b></font>&nbsp;';
+panch+='<font class="text8" size="2">' + (n_karana + 1) + '. ' + kar[n_karana] + '</font><br><font class="text3" color="#fff" size="1">' + s_karana + '</font></td></tr><tr bgcolor="#fffff0"><td valign="middle" bgcolor="#fffff0" nowrap colspan="2"><font class="text3" color="#3DB679" size="2"><b>योग:</b></font>&nbsp;';
+panch+='<font class="text8" size="2">' + (n_yoga + 1) + '. ' + yog[n_yoga] + '</font><br><font class="text3" color="#fff" size="1">' + s_yoga + '</font></td></tr></table>';
+panch+='<table width="230" border="0" cellspacing="0" cellpadding="0" align="center" height="20"><tr bgcolor="#000"><td width="230" height="20">';
+panch+='<table width="100%" border="0" cellspacing="0" cellpadding="0" height="20"><tr><td align="center" height="19"><span class="text3" ><font color="#3DB679" size="2"><b>Ayanamsa: </b></font> <font size="2">' + lon2dms(ayanamsa) + '</font> </span></td></tr><tr><td align="center" bgcolor="#999999" height="1"></td></tr></table></td></tr></table>';
+document.getElementById("vvv").innerHTML = panch;
 }
 
 function  sleep(milliSeconds){
