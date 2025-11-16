@@ -31,16 +31,6 @@ body {
     color: #FFD700;
     margin: 0; padding: 0;
 }
-#vvv {
-    width: 100%;
-    max-width: 360px;
-    margin: auto;
-    background: #1a1a33;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 5px 15px rgba(255,153,51,0.3);
-    text-align: center;
-}
 .panchang-item {
     background: #222244;
     border-radius: 8px;
@@ -63,8 +53,6 @@ body {
     font-size: 16px;
 }
 </style>
-
-<div id="vvv"></div>
 
 <script language="JavaScript">
 <!--
