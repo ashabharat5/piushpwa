@@ -339,7 +339,7 @@ tzone += floor(fZoneMin)/60;
 }
 inpmin = Math.floor(fMinutes);
 if (inpmin < 10)inpmin = "0" + inpmin;
-inpdate = '<font color="#990000"><b>' + Math.floor(fHours) + ':' + inpmin + '</b></font>&nbsp;' + 'Date: ' + '<font color="#990000"><b>'+ day + ' ' + month[mon-1] + ' ' + year + '</b></font>&nbsp;&nbsp;'
+inpdate = '<font color="#990000"><b>' + Math.floor(fHours) + ':' + inpmin + '</b></font>&nbsp;' + 'दिनांक: ' + '<font color="#990000"><b>'+ day + ' ' + month[mon-1] + ' ' + year + '</b></font>&nbsp;&nbsp;'
 
 var kday,kmon,kyear,khr,kmin,ksek;
 
@@ -1051,7 +1051,7 @@ panch += '</div>'; // End grid
 
 // Ayanamsa
 panch += '<div style="text-align:center;  font-family:\'Poppins\', sans-serif; margin-top:15px; padding:8px; background:#111133; border-radius:8px; color:#00FFAA; font-weight:600; box-shadow:0 2px 8px rgba(0,255,170,0.5);">';
-panch += 'Ayanamsa: ' + lon2dms(ayanamsa);
+panch += 'अयनांश गणना: ' + lon2dms(ayanamsa);
 panch += '</div>';
 
 panch += '</div>'; // End main container
