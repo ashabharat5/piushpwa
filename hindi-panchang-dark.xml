@@ -21,7 +21,7 @@ title_url="http://www.hindi4tech.blogspot.com"
 </ModulePrefs >
 <Content type="html" ><![CDATA[
 <!-- Include Poppins font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css2?family=Yatra+One&amp;display=swap' rel='stylesheet'/>
 
 <style>
 html, body {
@@ -43,7 +43,7 @@ body::-webkit-scrollbar {
     box-sizing: border-box;
 }
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Yatra One', cursive;
     background-color: #111122;
     color: #FFD700;
 }
